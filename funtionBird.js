@@ -349,5 +349,43 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+document.addEventListener("keydown", (e) => {
+  if (e.code === "Space") {
+    handleJump();
+  }
+});
+
+// Mobile / Touch Screen
+canvas.addEventListener("touchstart", (e) => {
+  e.preventDefault(); 
+  handleJump();
+});
+
+canvas.addEventListener("click", () => {
+  handleJump();
+});
+
+function handleJump() {
+  if (canvas.style.display === "block") {
+    if (!gameStarted) {
+      gameStarted = true;
+
+      sounds.start.currentTime = 0;
+      sounds.start.play();
+
+      sounds.bgm.play();
+    } 
+    else if (!gameOver) {
+      bird.velocity = bird.lift;
+
+      sounds.flap.currentTime = 0;
+      sounds.flap.play();
+    } 
+    else {
+      backHome();
+    }
+  }
+}
+
 // Load score
 loadRanking();
